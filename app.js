@@ -18,7 +18,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use(cors({}));
+app.use(
+  cors({
+    origin: "formulaires-tcvcm.ca",
+    credentials: true,
+  })
+);
 
 app.use(express.static(path.join(__dirname, "..")));
 
