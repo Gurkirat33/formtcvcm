@@ -2,17 +2,18 @@ import jwt from "jsonwebtoken";
 
 export const verifyUserToken = (req, res, next) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    const token = req.cookies.usertoken;
+
+    if (!token) {
       return res
         .status(401)
         .json({ message: "Accès non autorisé. Veuillez vous connecter." });
     }
 
-    const token = authHeader.split(" ")[1];
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
     req.userId = decoded.id;
+
     next();
   } catch (error) {
     console.error("Error in verifyUserToken middleware:", error);

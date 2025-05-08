@@ -37,8 +37,10 @@ export const register = async (req, res) => {
 
     res.cookie("usertoken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     res.status(201).json({
@@ -88,8 +90,10 @@ export const login = async (req, res) => {
 
     res.cookie("usertoken", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      secure: true,
+      sameSite: "none",
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
     });
 
     res.status(200).json({
@@ -122,8 +126,12 @@ export const getProfile = async (req, res) => {
 
 export const logout = (req, res) => {
   try {
-    // Clear the JWT cookie to log the user out
-    res.clearCookie("usertoken");
+    res.clearCookie("usertoken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "none",
+      path: "/",
+    });
 
     res.status(200).json({ message: "Déconnexion réussie" });
   } catch (error) {
@@ -134,15 +142,14 @@ export const logout = (req, res) => {
 
 export const validateToken = (req, res) => {
   try {
-    const authHeader = req.headers.authorization;
-    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+    const token = req.cookies.usertoken;
+
+    if (!token) {
       return res.status(401).json({
         valid: false,
         message: "No token provided",
       });
     }
-
-    const token = authHeader.split(" ")[1];
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
