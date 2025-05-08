@@ -18,19 +18,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
+// CORS configuration
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true);
       const allowedOrigins = [
         "http://127.0.0.1:5500",
         "http://localhost:5500",
         "http://localhost:3000",
+        "https://formtcvcm.vercel.app", // Add your Vercel domain
       ];
-      if (allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins.includes(origin)) {
         callback(null, true);
       } else {
-        callback(new Error("Not allowed by CORS"));
+        callback(null, true); // Allow all origins in production
       }
     },
     credentials: true,
@@ -54,9 +55,20 @@ app.get("/test", (req, res) => {
   return res.json({ message: "test" });
 });
 
+// API routes
 app.use("/api/admin", adminRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/auth", authRoutes);
+
+// Global error handler
+app.use((err, req, res, next) => {
+  console.error("Server Error:", err);
+  res.status(500).json({
+    message: "Internal Server Error",
+    error:
+      process.env.NODE_ENV === "production" ? "An error occurred" : err.message,
+  });
+});
 
 export default app;
 //
