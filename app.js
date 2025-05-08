@@ -23,7 +23,6 @@ app.use(
     exposedHeaders: ["user-logged-in", "set-cookie"],
   })
 );
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
