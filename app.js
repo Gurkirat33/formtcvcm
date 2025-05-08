@@ -20,7 +20,10 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://formulaires-tcvcm.ca",
+    origin: [
+      "https://formulaires-tcvcm.ca",
+      "https://form-test-plum.vercel.app/",
+    ],
     credentials: true,
   })
 );

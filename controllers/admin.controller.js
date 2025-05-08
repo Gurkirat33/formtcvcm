@@ -55,7 +55,7 @@ export const loginAdmin = async (req, res) => {
       secure: false,
       maxAge: 1 * 24 * 60 * 60 * 1000,
       path: "/",
-      domain: "localhost",
+      // domain: "localhost",
     });
 
     return res.status(200).json({
@@ -78,7 +78,7 @@ export const logoutAdmin = async (req, res) => {
       expires: new Date(0),
       secure: false,
       path: "/",
-      domain: "localhost",
+      // domain: "localhost",
     });
 
     res.status(200).json({ message: "Logged out successfully" });
