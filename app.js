@@ -22,7 +22,7 @@ app.use(
   cors({
     origin: [
       "https://formulaires-tcvcm.ca",
-      "https://form-test-plum.vercel.app/",
+      "https://form-test-plum.vercel.app",
     ],
     credentials: true,
   })
