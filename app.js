@@ -50,6 +50,10 @@ app.get("/profile.html", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "profile.html"));
 });
 
+app.get("/test", (req, res) => {
+  return res.json({ message: "test" });
+});
+
 app.use("/api/admin", adminRoutes);
 app.use("/api/events", eventRoutes);
 app.use("/api/auth", authRoutes);
