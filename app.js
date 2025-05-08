@@ -25,6 +25,9 @@ app.use(
       "https://form-test-plum.vercel.app",
     ],
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["user-logged-in"],
   })
 );
 
