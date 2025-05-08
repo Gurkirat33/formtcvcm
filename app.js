@@ -20,14 +20,10 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: [
-      "https://formulaires-tcvcm.ca",
-      "https://form-test-plum.vercel.app",
-    ],
+    origin: "https://formulaires-tcvcm.ca",
     credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    exposedHeaders: ["user-logged-in"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "Origin"],
   })
 );
 
