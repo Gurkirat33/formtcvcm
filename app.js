@@ -20,7 +20,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "formulaires-tcvcm.ca",
+    origin: "https://formulaires-tcvcm.ca",
     credentials: true,
   })
 );
