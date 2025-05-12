@@ -25,7 +25,7 @@ export const verifyUserToken = (req, res, next) => {
 
 export const verifyToken = (req, res, next) => {
   try {
-    const token = req.cookies.token;
+    const token = req.headers.authorization.split(" ")[1];
 
     if (!token) {
       return res
@@ -33,10 +33,7 @@ export const verifyToken = (req, res, next) => {
         .json({ message: "No token, authorization denied" });
     }
 
-    const decoded = jwt.verify(
-      token,
-      process.env.JWT_SECRET || "your_jwt_secret_key"
-    );
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.admin = decoded;
     next();
