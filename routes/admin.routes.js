@@ -28,7 +28,7 @@ router.get("/me", verifyToken, getCurrentAdmin);
 router.get("/events", verifyToken, getAllEventsAdmin);
 router.post("/events", verifyToken, createEvent);
 router.put("/events/:id", verifyToken, updateEvent);
-router.delete("/events/:id", verifyToken, deleteEvent);
+router.delete("/events/:id", deleteEvent);
 router.get("/events/:id", verifyToken, getEventById);
 
 router.get("/events-with-users", verifyToken, getEventsWithRegisteredUsers);
